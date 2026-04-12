@@ -1,5 +1,6 @@
 package stepDefinations1;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -18,32 +19,37 @@ import utils.TestConceptSetup;
 public class LandingPageStepDefinations {
 	public WebDriver driver;
 	public String LandingPageProdcutName;
+	LandingPage landingPage;
 	
 	TestConceptSetup testConceptSetup;
 	public LandingPageStepDefinations(TestConceptSetup testConceptSetup) {
 		this.testConceptSetup=testConceptSetup;
 		this.LandingPageProdcutName=LandingPageProdcutName;
-	}
-	@After
-	public void tearDown() throws InterruptedException {
-		Thread.sleep(3000);
-		testConceptSetup.driver.quit();
+		this.landingPage=testConceptSetup.pageObjectManager.getLandingPage();
 	}
 	
 	@Given("User is on Greencart Landing page")
-	public void user_is_on_Greencar_landing_page() {
-		
-		testConceptSetup.driver=new ChromeDriver();
-		testConceptSetup.driver.manage().window().maximize();
-		testConceptSetup.driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+	public void user_is_on_Greencar_landing_page() throws IOException {
+		System.out.println(landingPage.getTitleLandingPage());
+		Assert.assertTrue(landingPage.getTitleLandingPage().contains("GreenKart"));
+//		testConceptSetup.driver=new ChromeDriver();
+//		testConceptSetup.driver.manage().window().maximize();
+//		testConceptSetup.driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+		//testConceptSetup.testBase.WebDriverManager();
 	}
 	
-	@When("user searched with shortname {string} and extracted actual name of product")
+	@When("^user searched with shortname (.+) and extracted actual name of product$")
 	public void user_searched_with_shortname_and_extracted_actual_name_of_product(String name) {
-		LandingPage landingPage=testConceptSetup.pageObjectManager.getLandingPage();
+	
 		landingPage.searchItem(name);
 		testConceptSetup.LandingPageProdcutName=landingPage.getProductName().split("-")[0].trim();
 	    System.out.println("Landing page prodcut name:"+testConceptSetup.LandingPageProdcutName);
+	}
+	
+	@When("Added {string} items of the selected prduct to cart")
+	public void added_items_of_the_selected_prduct_to_cart(String Quantity) {
+	    landingPage.incrementProduct(Integer.parseInt(Quantity));;
+	    landingPage.ClickAddToCart();
 	}
 
 	

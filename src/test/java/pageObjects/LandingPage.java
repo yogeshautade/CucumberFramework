@@ -9,8 +9,10 @@ public class LandingPage {
 		this.driver=driver;
 	}
 	private By searchItem=By.xpath("//input[@class=\"search-keyword\"]");
-	private By productName=By.xpath("//h4[text()=\"Tomato - 1 Kg\"]");
+	private By productName=By.xpath("//div[@class=\"product\"]//h4");
 	private By clickTopDeal=By.xpath("//a[@href=\"#/offers\"]");
+	private By AddProduct=By.xpath("//a[@class=\"increment\"]");
+	private By ClickAddToCart=By.xpath("//div//button[contains(text(),\"ADD TO CART\")]");
 	
 	public void searchItem(String shortname) {
 		driver.findElement(searchItem).sendKeys(shortname);
@@ -23,4 +25,18 @@ public class LandingPage {
 	public void selectToDealPage() {
 		driver.findElement(clickTopDeal).click();
 	}
+	public void incrementProduct(int Quantity) {
+		int i=Quantity;
+		while(i>0) {
+			driver.findElement(AddProduct).click();
+		 i--;
+		}
+	}
+public void ClickAddToCart() {
+		driver.findElement(ClickAddToCart).click();
+	}
+
+ public String getTitleLandingPage() {
+	 return driver.getTitle();
+ }
 }

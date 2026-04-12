@@ -10,7 +10,7 @@ public class OfferPage {
 	}
 
 	private By searchItem=By.xpath("//input[@id=\"search-field\"]");
-	private By productName=By.xpath("//td[text()=\"Tomato\"]");
+	private By productName=By.xpath("//tbody//tr//td[1]");
 	 
     public void searchItem(String shortname) {
 		driver.findElement(searchItem).sendKeys(shortname);

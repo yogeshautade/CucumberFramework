@@ -12,7 +12,7 @@ public class CheckoutPage {
 		private By cartBag=By.xpath("//a[@class=\"cart-icon\"]");
 		private By checkOutButton=By.xpath("//button[contains(text(),\"PROCEED TO CHECKOUT\")]");
 		private By promobtn=By.xpath("//button[@class=\"promoBtn\"]");
-		private By placeorder=By.xpath("//button[contains(text(),\"Place Order\")]");
+		private By placeorder=By.xpath("//button[contains(text(),\"qlace Orde\")]");
 		private By getProductName=By.xpath("//p[@class=\"product-name\"]");
 		
 		public void CheckOutItems() {
